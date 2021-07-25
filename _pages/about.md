@@ -18,9 +18,10 @@ Before coming to Queen's University, I received my bachelor's degree from the [c
 
 
 # Experience
- * 2018.9 - present: Research Assistant Text Analytics and Machine Learning Lab (TAML), Queen's University  
+ * 2020.11. to Present. : Associate researcher in HUAWEI Noah's Ark Lab.
+ * 2020.9. to 2020.11. : Machine learning engineer in Livnao Inc.
+ * 2018.9 - 2020.9: Research Assistant Text Analytics and Machine Learning Lab (TAML), Queen's University  
  Supervised by [Prof. Xiaodan Zhu](http://www.xiaodanzhu.com/)
- * 2018.6 - 2018.9: Research intern at iFLYTEK Research, Hefei, China
  * 2017.9 - 2018.5: Exchange student at École centrale de Nantes, Nantes, France 
 
 
