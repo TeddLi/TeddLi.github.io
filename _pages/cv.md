@@ -72,6 +72,7 @@ Publications
 
 
 * [Several Experiments on Investigating Pretraining and Knowledge-Enhanced Models for Natural Language Inference](https://arxiv.org/abs/1904.12104) 
+
   Tianda Li, Xiaodan Zhu, Quan Liu, Qian Chen, Zhigang Chen, Si Wei  
   Preprint  [[PDF]](https://arxiv.org/abs/1904.12104)
 
