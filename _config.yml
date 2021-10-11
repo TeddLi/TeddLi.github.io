@@ -94,9 +94,9 @@ author:
   location         : Kingston (Canada)
   employer         :
   pubmed           : 
-  googlescholar    : 
+  googlescholar    : "https://scholar.google.com/citations?user=Dxa9plUAAAAJ&hl=en"
   email            : "tianda.li@queensu.ca"
-  researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
+  researchgate     : "https://www.researchgate.net/scientific-contributions/Tianda-Li-2156652877"
   uri              :
   bitbucket        :
   codepen          :
@@ -105,7 +105,7 @@ author:
   facebook         :
   foursquare       :
   github           : "TeddLi"
-  google_plus      :
+  google_plus      : 
   keybase          :
   instagram        :
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
