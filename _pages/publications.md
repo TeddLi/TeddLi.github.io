@@ -4,9 +4,20 @@ title: "Publications"
 permalink: /publications/
 author_profile: true
 ---
+{% if author.googlescholar %}
+  You can also find my articles on <u><a href="{{author.googlescholar}}">my Google Scholar profile</a>.</u>
+{% endif %}
+
+{% include base_path %}
+
+{% for post in site.publications reversed %}
+  {% include archive-single.html %}
+{% endfor %}
 
 
 
+
+<!-- 
 * [DialBERT: A Hierarchical Pre-Trained Model for Conversation Disentanglement](https://arxiv.org/pdf/2004.03760.pdf)  
   **Tianda Li**, Jia-Chen Gu, Xiaodan Zhu, Quan Liu, Zhen-Hua Ling, Zhiming Su, Si Wei  
   Preprint [[PDF]](https://arxiv.org/pdf/2004.03760.pdf) 
@@ -25,7 +36,7 @@ author_profile: true
 
 * [Several Experiments on Investigating Pretraining and Knowledge-Enhanced Models for Natural Language Inference](https://arxiv.org/abs/1904.12104) 
   **Tianda Li**, Xiaodan Zhu, Quan Liu, Qian Chen, Zhigang Chen, Si Wei  
-  Preprint  [[PDF]](https://arxiv.org/abs/1904.12104)
+  Preprint  [[PDF]](https://arxiv.org/abs/1904.12104) -->
 
  
 
