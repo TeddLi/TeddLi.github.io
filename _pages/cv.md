@@ -27,14 +27,16 @@ Work experience
 Skills
 ======
 * Machine Learing
-* Deep learning for NLP
+* Deep learning for NLP and CV
   * Python
   * Pytorch
   * Tensorflow
 * Objective coding
   * C++
   * Java
-
+* Big data
+  * AWS
+  * Spark
 
 Publications
 ======
