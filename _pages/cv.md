@@ -11,8 +11,8 @@ redirect_from:
 
 Education
 ======
-* B.S. in Tianjin, China, Nankai University, 2014
-* M.S. in Kingston, Canada, Queen's University, 2018
+* B.S. in Tianjin, China, Nankai University, 2014~2018
+* M.S. in Kingston, Canada, Queen's University, 2018~2020
 
 Work experience
 ======
