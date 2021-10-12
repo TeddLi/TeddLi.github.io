@@ -10,11 +10,11 @@ redirect_from:
 ---
 
 Hi! My name is Tianda Li.
-I am currently ML/NLP reseacher in Huawei Noah's Ark Lab (Canada).
+I am currently a ML/NLP reseacher in Huawei Noah's Ark Lab (Canada).
 I got my M.A.Sc degree from [Department of Electrical and Computer Engineering](https://www.ece.queensu.ca/) at [Queen's University (Canada)](https://www.queensu.ca/), supervised by [Prof. Xiaodan Zhu](http://www.xiaodanzhu.com/).
 
-My main research interests including natural language processing (NLP) and machine learning, and I am particularly interested in dialogues.
-Before coming to Queen's University, I received my bachelor's degree from the [college of computer and control engineering](https://cc.nankai.edu.cn/) at [Nankai University](https://www.intostudy.com/en/universities/nankai-university) in 2018.
+My main research interests including natural language processing (NLP) and machine learning, and I am particularly interested in knowledge distillation and dialogues.
+I received my bachelor's degree from the [college of computer and control engineering](https://cc.nankai.edu.cn/) at [Nankai University](https://www.intostudy.com/en/universities/nankai-university) in 2018.
 
 
 
