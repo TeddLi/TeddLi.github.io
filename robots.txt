@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://teddli.github.io/sitemap.xml

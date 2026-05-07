@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tianda Li · Applied Research Scientist & Founder</title>
+<meta name="description" content="Tianda Li (李天达) — Applied Research Scientist bringing AI automation into traditional industries. Founder of DeepTensor." />
+<meta name="author" content="Tianda Li" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Tianda Li · Applied Research Scientist & Founder" />
+<meta property="og:description" content="Bringing AI automation into traditional industries. Founder of DeepTensor." />
+<meta property="og:url" content="https://teddli.github.io/" />
+<meta property="og:type" content="website" />
+
+<!-- Favicon (uses existing image) -->
+<link rel="icon" type="image/png" href="https://teddli.github.io/images/profile.png" />
+
+<!-- Fonts: Fraunces (display, with character) + Geist (body, monospace-leaning sans) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<!-- GoatCounter analytics: privacy-friendly, no cookies. Replace MYCODE with the user's GoatCounter site code after they sign up free. -->
+<script data-goatcounter="https://teddli.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<style>
+  /* ============ DESIGN TOKENS ============ */
+  :root[data-theme="light"] {
+    --bg:           #FAFAF7;          /* warm off-white */
+    --bg-card:      #FFFFFF;
+    --bg-subtle:    #F2F1EC;
+    --text:         #1A1A1A;
+    --text-soft:    #4A4A48;
+    --text-muted:   #8A8A85;
+    --border:       #E8E6DF;
+    --border-soft:  #F0EEE7;
+    --accent:       #C2410C;          /* burnt orange */
+    --accent-soft:  #FED7AA;
+    --shadow-sm:    0 1px 2px rgba(20, 20, 20, 0.04);
+    --shadow-md:    0 4px 12px rgba(20, 20, 20, 0.06);
+    --shadow-lg:    0 12px 32px rgba(20, 20, 20, 0.08);
+  }
+
+  :root[data-theme="dark"] {
+    --bg:           #0F0F0E;          /* warm near-black */
+    --bg-card:      #1A1A18;
+    --bg-subtle:    #242421;
+    --text:         #F5F4EE;
+    --text-soft:    #C2C0B8;
+    --text-muted:   #7A7872;
+    --border:       #2E2D2A;
+    --border-soft:  #242421;
+    --accent:       #FB923C;          /* lighter burnt orange for dark */
+    --accent-soft:  #7C2D12;
+    --shadow-sm:    0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md:    0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg:    0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ============ RESET ============ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 16px;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+  }
+
+  /* ============ TYPOGRAPHY ============ */
+  .display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.02em;
+  }
+
+  .mono {
+    font-family: 'Geist Mono', 'SF Mono', Consolas, monospace;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  /* ============ LAYOUT ============ */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 250, 247, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-soft);
+    transition: background 0.4s ease;
+  }
+
+  :root[data-theme="dark"] .nav {
+    background: rgba(15, 15, 14, 0.85);
+  }
+
+  .nav-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--text-soft);
+    font-size: 0.875rem;
+    font-weight: 400;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-soft);
+    transition: all 0.3s ease;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: rotate(20deg);
+  }
+
+  .theme-toggle svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .theme-toggle .icon-sun { display: none; }
+  .theme-toggle .icon-moon { display: block; }
+  :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+  :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 80px 0 48px;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .avatar:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-name {
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .hero-name-cn {
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-left: 8px;
+    font-size: 0.7em;
+  }
+
+  .hero-tagline {
+    font-size: 1.0625rem;
+    color: var(--text-soft);
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+  }
+
+  .hero-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-meta .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10B981;
+    display: inline-block;
+    margin-right: 4px;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+    animation: pulse 2.4s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+    50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    color: var(--text-soft);
+    background: var(--bg-card);
+    transition: all 0.2s ease;
+  }
+
+  .pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pill svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* ============ SECTIONS ============ */
+  section {
+    padding: 48px 0;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .section-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  /* ============ ABOUT / BIO ============ */
+  .bio p {
+    font-size: 1rem;
+    color: var(--text-soft);
+    margin-bottom: 16px;
+    line-height: 1.75;
+  }
+
+  .bio strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ============ EXPERIENCE & UPDATES ============ */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+
+  .tl-item:hover {
+    background: var(--bg-subtle);
+  }
+
+  .tl-date {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    padding-top: 2px;
+    white-space: nowrap;
+  }
+
+  .tl-content {
+    font-size: 0.9375rem;
+    color: var(--text-soft);
+  }
+
+  .tl-content strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .tl-content .org {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .tl-tag {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  :root[data-theme="dark"] .tl-tag {
+    background: rgba(251, 146, 60, 0.15);
+  }
+
+  /* ============ PUBLICATIONS / RESEARCH ============ */
+  .research-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .pub-card {
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .pub-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+  }
+
+  .pub-venue {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .pub-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.35;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .pub-desc {
+    font-size: 0.875rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  .pub-award {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.6875rem;
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    vertical-align: middle;
+  }
+
+  /* ============ INTEREST CHIPS ============ */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    color: var(--text-soft);
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .chip:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 40px 0 64px;
+    border-top: 1px solid var(--border-soft);
+    margin-top: 32px;
+  }
+
+  .foot-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .foot-meta {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .foot-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .foot-stats img {
+    height: 18px;
+    border-radius: 3px;
+    opacity: 0.85;
+  }
+
+  .stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: var(--bg-subtle);
+    border-radius: 999px;
+  }
+
+  .stat-badge .stat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ============ SCROLL REVEAL ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 640px) {
+    .hero { padding: 48px 0 32px; }
+    .hero-grid { grid-template-columns: 80px 1fr; gap: 20px; }
+    .avatar { width: 80px; height: 80px; }
+    .hero-name { font-size: 1.875rem; }
+    .hero-tagline { font-size: 0.9375rem; }
+    .nav-links { gap: 16px; }
+    .nav-links a:not(:last-child):not(.theme-toggle) { display: none; }
+    .tl-item { grid-template-columns: 1fr; gap: 4px; padding: 12px 12px; }
+    .tl-date { font-size: 0.75rem; }
+    .section-title { font-size: 1.5rem; }
+    section { padding: 36px 0; }
+    .foot-grid { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ============ SELECTION ============ */
+  ::selection {
+    background: var(--accent);
+    color: white;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ================ NAV ================ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">Tianda Li</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#research">Research</a>
+      <a href="#updates">Updates</a>
+      <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<!-- ================ HERO ================ -->
+<section class="hero" style="border-top: none;">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="avatar">
+        <img src="https://teddli.github.io/images/profile.png" alt="Tianda Li" />
+      </div>
+      <div>
+        <h1 class="hero-name display">Tianda Li<span class="hero-name-cn">李天达</span></h1>
+        <p class="hero-tagline">Bringing AI automation into traditional industries. Founder of <a href="https://www.deeptensor.net/">DeepTensor</a>.</p>
+        <div class="hero-meta">
+          <span><span class="dot"></span>Available for collaborations</span>
+          <span>· Toronto → Singapore</span>
+        </div>
+        <div class="hero-links">
+          <a class="pill" href="mailto:focuslee1214@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+          <a class="pill" href="https://scholar.google.com/citations?user=Dxa9plUAAAAJ&hl=en" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            Google Scholar
+          </a>
+          <a class="pill" href="https://github.com/TeddLi" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.3v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></svg>
+            GitHub
+          </a>
+          <a class="pill" href="https://www.linkedin.com/in/tianda-li-606baa181/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ ABOUT ================ -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About</div>
+    <h2 class="section-title">Bio</h2>
+    <div class="bio reveal">
+      <p>I'm an applied research scientist focused on <strong>bringing AI into traditional industries</strong> — building automation systems that take recent advances in LLMs and agentic systems out of papers and into real business workflows. In parallel, I'm developing an <strong>AI-driven trading system</strong> that combines my research background with quantitative finance.</p>
+      <p>I founded <strong><a href="https://www.deeptensor.net/">DeepTensor Pte. Ltd.</a></strong> in Singapore as the vehicle for this work — an independent AI lab building products that bring automation into traditional industries.</p>
+      <p>My research background spans large language models, document intelligence (KIE, visual document understanding), knowledge distillation, and agentic systems. Outside of company work, I've trained LLMs at scale (up to 18B parameters) on distributed infrastructure I built and operated end-to-end.</p>
+      <p>I received my M.A.Sc. from <a href="https://www.queensu.ca/">Queen's University</a> (Canada), advised by <a href="https://scholar.google.ca/citations?user=a6MYnuUAAAAJ&hl=en">Prof. Xiaodan Zhu</a>. Before that I studied at <a href="https://en.nankai.edu.cn/">Nankai University</a> (B.Eng. in Information Security + B.A. in Law, dual degree) and spent a year on exchange at <a href="https://www.ec-nantes.fr/english-version">École Centrale de Nantes</a> in France.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================ INTERESTS ================ -->
+<section id="interests">
+  <div class="container">
+    <div class="section-label">Focus</div>
+    <h2 class="section-title">What I'm building</h2>
+    <div class="chips reveal">
+      <span class="chip">AI for Traditional Industries</span>
+      <span class="chip">Workflow Automation</span>
+      <span class="chip">Agentic Systems</span>
+      <span class="chip">LLM Applications</span>
+      <span class="chip">AI Trading Systems</span>
+    </div>
+
+    <div class="section-label" style="margin-top: 32px;">Research Background</div>
+    <div class="chips reveal" style="margin-top: 12px;">
+      <span class="chip">Large Language Models</span>
+      <span class="chip">Document Intelligence</span>
+      <span class="chip">Knowledge Distillation</span>
+      <span class="chip">Visual Document Understanding</span>
+      <span class="chip">Key Information Extraction</span>
+      <span class="chip">Distributed Training</span>
+      <span class="chip">Sparse Pretraining</span>
+      <span class="chip">Conversational AI</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================ EXPERIENCE ================ -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Where I've been</h2>
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <div class="tl-date">2023 — Now</div>
+        <div class="tl-content">
+          <strong>Founder</strong> · <span class="org"><a href="https://www.deeptensor.net/">DeepTensor Pte. Ltd.</a></span>
+          <br/>Independent AI lab building products for traditional industries · Singapore
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2023 — 2026</div>
+        <div class="tl-content">
+          <strong>Senior Applied Research Scientist</strong> · <span class="org">ServiceNow Research (ATG)</span>
+          <br/>SOTA application of CV & key information extraction in enterprise products · Llama Award, 2024
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2022 — 2023</div>
+        <div class="tl-content">
+          <strong>ML Engineer</strong> · <span class="org">Cerebras Systems</span>
+          <br/>Sparse pretraining of GPT-scale models on the Wafer-Scale Engine
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2020 — 2022</div>
+        <div class="tl-content">
+          <strong>ML Researcher</strong> · <span class="org">Huawei Noah's Ark Lab</span>
+          <br/>Knowledge distillation research; first-author papers at EMNLP and NeurIPS workshops
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2018 — 2020</div>
+        <div class="tl-content">
+          <strong>M.A.Sc. & Research Assistant</strong> · <span class="org">Queen's University</span>
+          <br/>TAML Lab, advised by Prof. Xiaodan Zhu · NLP, distillation, dialogue systems
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2018</div>
+        <div class="tl-content">
+          <strong>Research Intern</strong> · <span class="org">iFlytek</span>
+          <br/>Natural language inference research on the SNLI dataset
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2014 — 2018</div>
+        <div class="tl-content">
+          <strong>B.Eng. (Information Security) + B.A. (Law)</strong> · <span class="org">Nankai University</span>
+          <br/>Dual degree · Exchange at École Centrale de Nantes (France), 2017 — 2018
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================ RESEARCH HIGHLIGHTS ================ -->
+<section id="research">
+  <div class="container">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">Selected work</h2>
+    <div class="research-cards reveal">
+
+      <div class="pub-card">
+        <div class="pub-venue">ACL 2022 · DialDoc Workshop <span class="pub-award">Best Paper</span></div>
+        <div class="pub-title">Document-grounded Dialogue Research</div>
+        <div class="pub-desc">Best Paper Award at the DialDoc Workshop, ACL 2022.</div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-venue">UAI 2023</div>
+        <div class="pub-title">Sparse Pretraining of GPT-scale Language Models</div>
+        <div class="pub-desc">Sparse pretraining methods on the Cerebras Wafer-Scale Engine.</div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-venue">EMNLP · First Author</div>
+        <div class="pub-title">Knowledge Distillation for Language Models</div>
+        <div class="pub-desc">First-author work on model compression and efficient transfer of knowledge in pretrained LMs (Huawei Noah's Ark Lab era).</div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-venue">NeurIPS Workshop · First Author</div>
+        <div class="pub-title">Efficient Transfer in Pretrained Models</div>
+        <div class="pub-desc">Workshop paper extending the distillation line of work on large pretrained language models.</div>
+      </div>
+
+      <div class="pub-card" style="background: transparent; border-style: dashed;">
+        <div class="pub-venue">More on Google Scholar</div>
+        <div class="pub-title"><a href="https://scholar.google.com/citations?user=Dxa9plUAAAAJ&hl=en">Full publication list →</a></div>
+        <div class="pub-desc">Includes additional papers in EMNLP, ACL, ICASSP, and UAI.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================ UPDATES ================ -->
+<section id="updates">
+  <div class="container">
+    <div class="section-label">Updates</div>
+    <h2 class="section-title">Recent</h2>
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <div class="tl-date">2026</div>
+        <div class="tl-content">Relocating from Toronto to Singapore. <span class="tl-tag">Move</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2025</div>
+        <div class="tl-content">Trained an 18B-parameter LLM independently end-to-end through DeepTensor.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2024</div>
+        <div class="tl-content">Received the <strong>ServiceNow Llama Award</strong> for contributions in LLM application research.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2023</div>
+        <div class="tl-content">Founded <strong><a href="https://www.deeptensor.net/">DeepTensor Pte. Ltd.</a></strong> in Singapore. Joined ServiceNow Research as Senior Applied Research Scientist.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">2022</div>
+        <div class="tl-content"><strong>Best Paper</strong> at ACL 2022 DialDoc Workshop. <span class="tl-tag">Award</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================ FOOTER ================ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-meta">
+        © <span id="year">2026</span> Tianda Li · Built with care.
+      </div>
+      <div class="foot-stats">
+        <span class="stat-badge"><span class="stat-dot"></span><span id="visit-count">…</span> visits</span>
+        <a href="https://teddli.goatcounter.com/" target="_blank" rel="noopener" style="color: var(--text-muted);">stats →</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================ SCRIPTS ================ -->
+<script>
+  // -------- Theme toggle --------
+  function toggleTheme() {
+    const root = document.documentElement;
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+
+  // restore preference
+  (function () {
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+
+  // -------- Year --------
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // -------- Scroll reveal --------
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach((el) => io.observe(el));
+
+  // -------- Visit counter (GoatCounter JSON API) --------
+  // Requires that the user signs up for a free GoatCounter account at the slug "teddli".
+  // If the API is not yet set up, this gracefully shows "—" instead.
+  fetch('https://teddli.goatcounter.com/counter/TOTAL.json')
+    .then((r) => r.ok ? r.json() : Promise.reject())
+    .then((data) => {
+      const el = document.getElementById('visit-count');
+      if (data && typeof data.count_unique !== 'undefined') {
+        el.textContent = data.count_unique.toLocaleString();
+      } else if (data && typeof data.count !== 'undefined') {
+        el.textContent = data.count.toLocaleString();
+      } else {
+        el.textContent = '—';
+      }
+    })
+    .catch(() => {
+      document.getElementById('visit-count').textContent = '—';
+    });
+</script>
+
+</body>
+</html>
