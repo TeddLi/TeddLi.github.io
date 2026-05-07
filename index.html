@@ -558,6 +558,115 @@
     background: var(--accent);
   }
 
+  /* ============ VISITORS ============ */
+  .visitors-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+    align-items: start;
+    margin-top: 24px;
+  }
+
+  .visitors-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .visitors-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+  }
+
+  .visitors-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .visitors-total {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .spark-svg {
+    width: 100%;
+    height: 72px;
+    display: block;
+  }
+
+  .spark-line { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+  .spark-area { fill: var(--accent); opacity: 0.08; }
+
+  .country-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .country-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.8125rem;
+  }
+
+  .country-name {
+    font-family: 'Geist Mono', monospace;
+    color: var(--text-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .country-flag { font-size: 0.95rem; line-height: 1; }
+
+  .country-bar {
+    position: relative;
+    height: 3px;
+    background: var(--bg-subtle);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .country-bar-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--accent);
+    border-radius: 2px;
+    opacity: 0.65;
+    transition: width 0.6s ease;
+  }
+
+  .country-count {
+    font-family: 'Geist Mono', monospace;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-align: right;
+    min-width: 40px;
+  }
+
+  .visitors-msg {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    padding: 8px 0;
+  }
+
+  @media (max-width: 640px) {
+    .visitors-grid { grid-template-columns: 1fr; gap: 16px; }
+  }
+
   /* ============ SCROLL REVEAL ============ */
   .reveal {
     opacity: 0;
@@ -849,6 +958,32 @@
   </div>
 </section>
 
+<!-- ================ VISITORS ================ -->
+<section id="visitors">
+  <div class="container">
+    <div class="section-label">Visitors</div>
+    <h2 class="section-title">Who's stopped by</h2>
+    <div class="visitors-grid reveal">
+      <div class="visitors-block">
+        <div class="visitors-head">
+          <span class="visitors-label">Last 30 days</span>
+          <span class="visitors-total" id="visitors-total-30d">—</span>
+        </div>
+        <svg class="spark-svg" id="visitors-spark" viewBox="0 0 300 72" preserveAspectRatio="none" aria-label="Daily visits over the last 30 days"></svg>
+        <div class="visitors-msg" id="visitors-spark-msg" style="display:none;">Loading…</div>
+      </div>
+      <div class="visitors-block">
+        <div class="visitors-head">
+          <span class="visitors-label">Top countries</span>
+        </div>
+        <div class="country-list" id="visitors-countries">
+          <div class="visitors-msg">Loading…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================ FOOTER ================ -->
 <footer>
   <div class="container">
@@ -899,9 +1034,7 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach((el) => io.observe(el));
 
-  // -------- Visit counter (GoatCounter JSON API) --------
-  // Requires that the user signs up for a free GoatCounter account at the slug "teddli".
-  // If the API is not yet set up, this gracefully shows "—" instead.
+  // -------- Footer total visit counter (public endpoint, no token) --------
   fetch('https://teddli.goatcounter.com/counter/TOTAL.json')
     .then((r) => r.ok ? r.json() : Promise.reject())
     .then((data) => {
@@ -917,6 +1050,124 @@
     .catch(() => {
       document.getElementById('visit-count').textContent = '—';
     });
+
+  // -------- Visitors section: 30-day sparkline + top countries --------
+  // Uses GoatCounter authenticated API. The token below is read-only and scoped
+  // to this site; exposure is acceptable because it can only retrieve stats
+  // already shown on this page. Generate at:
+  // https://teddli.goatcounter.com/user/api  (check only "Read statistics")
+  (function () {
+    const TOKEN = '1onxhlqnze52n11wabu6kmeu8213kqkgzwpi2ky1lajfvbl82rw7'; // read-only, scoped to teddli.goatcounter.com
+    const BASE = 'https://teddli.goatcounter.com/api/v0';
+    const CACHE_KEY = 'gc_stats_v1';
+    const CACHE_TTL = 60 * 60 * 1000; // 1h
+
+    const $countries = document.getElementById('visitors-countries');
+    const $sparkMsg = document.getElementById('visitors-spark-msg');
+    const $svg = document.getElementById('visitors-spark');
+    const $total = document.getElementById('visitors-total-30d');
+
+    function showMsg(target, text) { target.innerHTML = '<div class="visitors-msg">' + text + '</div>'; }
+
+    if (!TOKEN) {
+      showMsg($countries, 'Add API token to enable');
+      $sparkMsg.style.display = 'block';
+      $sparkMsg.textContent = 'Add API token to enable';
+      return;
+    }
+
+    function fmtDate(d) { return d.toISOString().slice(0, 10); }
+    function getRange() {
+      const end = new Date();
+      const start = new Date(end);
+      start.setDate(start.getDate() - 29);
+      return { start: fmtDate(start), end: fmtDate(end) };
+    }
+
+    function flag(cc) {
+      if (!cc || cc.length !== 2) return '🌐';
+      const A = 0x1F1E6;
+      try {
+        return String.fromCodePoint(...[...cc.toUpperCase()].map(c => A + c.charCodeAt(0) - 65));
+      } catch (_) { return '🌐'; }
+    }
+
+    async function fetchStats() {
+      const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+      if (cached && Date.now() - cached.t < CACHE_TTL) return cached.data;
+      const { start, end } = getRange();
+      const opts = { headers: { Authorization: 'Bearer ' + TOKEN } };
+      const [hitsR, locR] = await Promise.all([
+        fetch(`${BASE}/stats/total?start=${start}&end=${end}`, opts),
+        fetch(`${BASE}/stats/locations?start=${start}&end=${end}`, opts),
+      ]);
+      if (!hitsR.ok || !locR.ok) throw new Error('API request failed');
+      const data = { hits: await hitsR.json(), locations: await locR.json() };
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), data }));
+      return data;
+    }
+
+    function extractDailySeries(hits) {
+      // Try several response shapes — GoatCounter API has evolved.
+      if (Array.isArray(hits?.stats)) {
+        return hits.stats.map(d => ({ day: d.day, value: d.daily ?? d.count ?? 0 }));
+      }
+      if (Array.isArray(hits?.hits) && hits.hits[0]?.stats) {
+        const merged = {};
+        hits.hits.forEach(p => (p.stats || []).forEach(d => {
+          merged[d.day] = (merged[d.day] || 0) + (d.daily ?? d.count ?? 0);
+        }));
+        return Object.keys(merged).sort().map(day => ({ day, value: merged[day] }));
+      }
+      return [];
+    }
+
+    function renderSpark(hits) {
+      const series = extractDailySeries(hits);
+      if (!series.length) {
+        $sparkMsg.style.display = 'block';
+        $sparkMsg.textContent = 'No data yet';
+        return;
+      }
+      const W = 300, H = 72, P = 4;
+      const max = Math.max(1, ...series.map(s => s.value));
+      const dx = (W - P * 2) / Math.max(1, series.length - 1);
+      const pts = series.map((s, i) => [P + i * dx, H - P - (s.value / max) * (H - P * 2)]);
+      const line = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+      const area = line + ` L${pts[pts.length - 1][0].toFixed(1)},${H} L${pts[0][0].toFixed(1)},${H} Z`;
+      $svg.innerHTML = `<path class="spark-area" d="${area}" /><path class="spark-line" d="${line}" />`;
+      const total = hits.total ?? series.reduce((a, s) => a + s.value, 0);
+      $total.textContent = total.toLocaleString();
+    }
+
+    function renderCountries(loc) {
+      const stats = loc?.stats || [];
+      if (!stats.length) { showMsg($countries, 'No data yet'); return; }
+      const top = stats.slice(0, 6);
+      const max = Math.max(1, ...top.map(c => c.count));
+      $countries.innerHTML = top.map(c => `
+        <div class="country-row">
+          <div>
+            <div class="country-name">
+              <span class="country-flag">${flag(c.id)}</span>
+              <span>${(c.name || c.id || 'Unknown').replace(/[<>&]/g, '')}</span>
+            </div>
+            <div class="country-bar"><div class="country-bar-fill" style="width: ${(c.count / max * 100).toFixed(1)}%"></div></div>
+          </div>
+          <div class="country-count">${c.count.toLocaleString()}</div>
+        </div>
+      `).join('');
+    }
+
+    fetchStats()
+      .then(data => { renderSpark(data.hits); renderCountries(data.locations); })
+      .catch(err => {
+        console.error('GoatCounter stats failed:', err);
+        $sparkMsg.style.display = 'block';
+        $sparkMsg.textContent = 'Stats unavailable';
+        showMsg($countries, 'Stats unavailable');
+      });
+  })();
 </script>
 
 </body>
